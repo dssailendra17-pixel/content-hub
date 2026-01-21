@@ -25,6 +25,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { RichTextEditor } from './RichTextEditor';
+import { ImageUploader } from './ImageUploader';
 import { Content, ContentFormData, WordPressCategory } from '@/lib/types';
 import { useCategories } from '@/hooks/useCategories';
 import { Loader2 } from 'lucide-react';
@@ -175,24 +176,18 @@ export function ContentFormModal({
                     name="featured_image_url"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Featured Image URL</FormLabel>
+                        <FormLabel>Featured Image</FormLabel>
                         <FormControl>
-                          <Input placeholder="https://..." {...field} />
+                          <ImageUploader
+                            value={field.value}
+                            onChange={field.onChange}
+                            altText={form.watch('featured_image_alt')}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
-                  {form.watch('featured_image_url') && (
-                    <div className="relative w-full max-w-sm">
-                      <img
-                        src={form.watch('featured_image_url')}
-                        alt="Featured preview"
-                        className="w-full h-auto rounded-md border"
-                      />
-                    </div>
-                  )}
 
                   <FormField
                     control={form.control}
